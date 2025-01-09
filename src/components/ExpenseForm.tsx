@@ -21,9 +21,9 @@ export default function ExpenseForm() {
 
     useEffect(() => {
         if (state.editingId) {
-            const editingExpense = state.expenses.filter( currentExpense => currentExpense.id === state.editingId )[0]
+            const editingExpense = state.expenses.filter(currentExpense => currentExpense.id === state.editingId)[0]
             setExpense(editingExpense)
-        }  
+        }
     }, [state.editingId])
 
     const handleChange = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) => {
@@ -47,9 +47,9 @@ export default function ExpenseForm() {
         }
 
         //agregar o actualizar un gasto
-        if(state.editingId) {
+        if (state.editingId) {
             dispatch({ type: 'update-expense', payload: { expense: { ...expense, id: state.editingId } } })
-        }else{
+        } else {
             dispatch({ type: 'add-expense', payload: { expense } })
         }
 
@@ -64,7 +64,9 @@ export default function ExpenseForm() {
 
     return (
         <form action="" className="space-y-5" onSubmit={handleSubmit}>
-            <legend className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2">Nuevo Gasto</legend>
+            <legend className="uppercase text-center text-2xl font-black border-b-4 border-blue-500 py-2">
+                {state.editingId ? 'Actualizar Gasto' : 'Nuevo Gasto'}
+            </legend>
 
             {error && <ErrorMessage>{error}</ErrorMessage>}
 
@@ -123,7 +125,10 @@ export default function ExpenseForm() {
                     onChange={handleChangeDate}
                 />
             </div>
-            <input type="submit" className="bg-blue-600 p-2 text-white uppercase font-bold cursor-pointer w-full" value="Agregar Gasto" />
+            <input
+                type="submit"
+                className="bg-blue-600 p-2 text-white uppercase font-bold cursor-pointer w-full"
+                value={state.editingId ? 'Actualizar' : 'Agregar'} />
         </form>
     )
 }

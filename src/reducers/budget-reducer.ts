@@ -51,7 +51,8 @@ export const budgetReducer = (
     if(action.type === 'hide-modal') {
         return {
             ...state,
-            modal: false
+            modal: false,
+            editingId: ''
         }
     }
     if(action.type === 'add-expense') {
